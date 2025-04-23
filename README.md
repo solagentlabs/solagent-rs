@@ -1,10 +1,10 @@
 
 
-# SOLAGENT
-* **[Agent Frameworks]()**: Rig
+# SOLAGENT-RS
+* **[LLM router]()**: Rig
 * **[Wallets]()**: keypair, solana
 * **[tools]()**: Birdeye, dexscreener, solana, jupiter, helius and more
-* **[Chains]()**: Solana only
+* **[Chains]()**: Solana
 
 ## Quick start
 * Add dependencies
@@ -91,7 +91,7 @@ async fn main() {
 
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=zTgx/solagent.rs&type=Date)](https://star-history.com/#zTgx/solagent.rs&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=solagentlabs/solagent-rs&type=Date)](https://www.star-history.com/#solagentlabs/solagent-rs&Date)
 
 ## Support solagent.rs
 Thank you for your support of solagent.rs! Donation Addresses:    
