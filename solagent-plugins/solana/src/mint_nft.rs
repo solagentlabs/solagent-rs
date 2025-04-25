@@ -30,13 +30,13 @@ use solagent_core::{
         sysvar,
         transaction::Transaction,
     },
-    SolanaAgentKit,
+    SolAgent,
 };
 
 /// Mints a new NFT
 ///
 /// # Arguments
-/// - `agent`: An instance of `SolanaAgentKit`.
+/// - `agent`: An instance of `SolAgent`.
 /// - `collection`: The public key of the collection to which the NFT belongs. This is used to associate the NFT with a specific collection if applicable.
 /// - `metadata`: A struct containing the NFT's metadata:
 ///     * `name`: The name of the NFT as a string.
@@ -47,7 +47,7 @@ use solagent_core::{
 /// # Returns
 /// The transaction signature.
 pub async fn mint_nft_to_collection(
-    agent: &SolanaAgentKit,
+    agent: &SolAgent,
     collection: Pubkey,
     metadata: NFTMetadata,
 ) -> Result<DeployedData, ClientError> {

@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 use solagent_core::{
     rig::{completion::ToolDefinition, tool::Tool},
-    SolanaAgentKit,
+    SolAgent,
 };
 use solagent_parameters::parameters;
 use solagent_plugin_jupiter::trade;
@@ -25,11 +25,11 @@ pub struct TradeOutput {
 pub struct TradeError;
 
 pub struct Trade {
-    agent: Arc<SolanaAgentKit>,
+    agent: Arc<SolAgent>,
 }
 
 impl Trade {
-    pub fn new(agent: Arc<SolanaAgentKit>) -> Self {
+    pub fn new(agent: Arc<SolAgent>) -> Self {
         Trade { agent }
     }
 }

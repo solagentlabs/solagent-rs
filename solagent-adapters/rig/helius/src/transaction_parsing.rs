@@ -4,7 +4,7 @@ use solagent_core::{
         completion::ToolDefinition,
         tool::Tool,
     },
-    SolanaAgentKit,
+    SolAgent,
 };
 use solagent_parameters::parameters;
 use solagent_plugin_helius::transaction_parse;
@@ -25,11 +25,11 @@ pub struct TransactionParseOutput {
 pub struct TransactionParseError;
 
 pub struct TransactionParse {
-    agent: Arc<SolanaAgentKit>,
+    agent: Arc<SolAgent>,
 }
 
 impl TransactionParse {
-    pub fn new(agent: Arc<SolanaAgentKit>) -> Self {
+    pub fn new(agent: Arc<SolAgent>) -> Self {
         TransactionParse { agent }
     }
 }

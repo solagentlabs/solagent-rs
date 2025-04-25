@@ -2,7 +2,7 @@ use serde::{Deserialize, Serialize};
 use solagent_core::{
     rig::{completion::ToolDefinition, tool::Tool},
     solana_sdk::pubkey::Pubkey,
-    SolanaAgentKit,
+    SolAgent,
 };
 use solagent_parameters::parameters;
 use solagent_plugin_gibwork::{create_gibwork_task, GibworkCreateTaskResponse};
@@ -29,11 +29,11 @@ pub struct CreateGibworkTaskOutput {
 pub struct CreateGibworkTaskError;
 
 pub struct CreateGibworkTask {
-    agent: Arc<SolanaAgentKit>,
+    agent: Arc<SolAgent>,
 }
 
 impl CreateGibworkTask {
-    pub fn new(agent: Arc<SolanaAgentKit>) -> Self {
+    pub fn new(agent: Arc<SolAgent>) -> Self {
         CreateGibworkTask { agent }
     }
 }

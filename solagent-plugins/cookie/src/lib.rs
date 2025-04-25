@@ -1,12 +1,12 @@
 use serde_json::Value;
-use solagent_core::SolanaAgentKit;
+use solagent_core::SolAgent;
 use std::error::Error;
 
 /// Retrieve agent details in specified interval by one of its tokens contract address.
 ///
 /// # Parameters
 ///
-/// - `agent`: An instance of `SolanaAgentKit`.
+/// - `agent`: An instance of `SolAgent`.
 /// - `contract_address`: Contract address of one of the tokens contracts (matches case insensitive)
 /// - `interval`: An optional Interval for twitter stats and deltas (_3Days, _7Days). If not provided, returns the _7Days.
 ///
@@ -14,7 +14,7 @@ use std::error::Error;
 ///
 /// A `Result` that agent details
 pub async fn get_agent_by_ca(
-    agent: &SolanaAgentKit,
+    agent: &SolAgent,
     contract_address: &str,
     interval: Option<u32>,
 ) -> Result<Value, Box<dyn Error>> {
@@ -38,7 +38,7 @@ pub async fn get_agent_by_ca(
 ///
 /// # Parameters
 ///
-/// - `agent`: An instance of `SolanaAgentKit`.
+/// - `agent`: An instance of `SolAgent`.
 /// - `twitter_name`: Twitter username of agent (matches case insensitive)
 /// - `interval`: An optional Interval for twitter stats and deltas (_3Days, _7Days). If not provided, returns the _7Days.
 ///
@@ -46,7 +46,7 @@ pub async fn get_agent_by_ca(
 ///
 /// A `Result` that agent details
 pub async fn get_agent_by_name(
-    agent: &SolanaAgentKit,
+    agent: &SolAgent,
     twitter_name: &str,
     interval: Option<u32>,
 ) -> Result<Value, Box<dyn Error>> {
@@ -70,7 +70,7 @@ pub async fn get_agent_by_name(
 ///
 /// # Parameters
 ///
-/// - `agent`: An instance of `SolanaAgentKit`.
+/// - `agent`: An instance of `SolAgent`.
 /// - `search_query`: Word or phrase to be searched for in text
 /// - `from`: Only consider content created after given date, eg. 2025-01-01
 /// - `to`: Only consider content created before given date, eg. 2025-01-20
@@ -79,7 +79,7 @@ pub async fn get_agent_by_name(
 ///
 /// A `Result` that tweets details
 pub async fn search_tweets(
-    agent: &SolanaAgentKit,
+    agent: &SolAgent,
     tweets: &str,
     from: &str,
     to: &str,

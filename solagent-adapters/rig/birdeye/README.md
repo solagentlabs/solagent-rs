@@ -20,7 +20,7 @@ use solagent_core::rig::{completion::Prompt, providers};
 use solagent_rig_birdeye::MarketData;
 use std::sync::Arc;
 
-fn setup_solagent() -> SolanaAgentKit {
+fn setup_solagent() -> SolAgent {
     let keypair = Keypair::new();
     let private_key = keypair.to_base58_string();
     env::set_var("TEST_PRIVATE_KEY", &private_key);
@@ -31,14 +31,14 @@ fn setup_solagent() -> SolanaAgentKit {
             env::var("BIRDEYE_API_KEY").unwrap();
 
     let config = ConfigBuilder::default().birdeye_api_key(birdeye_api_key).build();
-    let agent = SolanaAgentKit::new(wallet, "https://api.devnet.solana.com", config);
+    let agent = SolAgent::new(wallet, "https://api.devnet.solana.com", config);
 
     agent
 }
 
 #[tokio::main]
 async fn main() {
-    // Setup SolanaAgentKit
+    // Setup SolAgent
     let agent_kit = setup_solagent();
 
     // Adapater

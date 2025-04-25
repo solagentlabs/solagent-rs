@@ -15,7 +15,7 @@
 use serde::{Deserialize, Serialize};
 use solagent_core::{
     rig::{completion::ToolDefinition, tool::Tool},
-    IWallet, SolanaAgentKit,
+    IWallet, SolAgent,
 };
 use solagent_parameters::parameters;
 use solagent_plugin_cookie::search_tweets;
@@ -38,11 +38,11 @@ pub struct SearchTweetsOutput {
 pub struct SearchTweetsError;
 
 pub struct SearchTweets<W: IWallet> {
-    agent: Arc<SolanaAgentKit<W>>,
+    agent: Arc<SolAgent<W>>,
 }
 
 impl<W: IWallet> SearchTweets<W> {
-    pub fn new(agent: Arc<SolanaAgentKit<W>>) -> Self {
+    pub fn new(agent: Arc<SolAgent<W>>) -> Self {
         SearchTweets { agent }
     }
 }

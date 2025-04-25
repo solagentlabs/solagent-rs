@@ -13,10 +13,10 @@
 // limitations under the License.
 
 use serde_json::json;
-use solagent_core::SolanaAgentKit;
+use solagent_core::SolAgent;
 
 pub async fn get_assets_by_owner(
-    agent: &SolanaAgentKit,
+    agent: &SolAgent,
     owner_public_key: &str,
     limit: u32,
 ) -> Result<serde_json::Value, Box<dyn std::error::Error>> {

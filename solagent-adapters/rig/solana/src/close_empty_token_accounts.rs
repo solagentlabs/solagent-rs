@@ -18,7 +18,7 @@ use solagent_core::{
         completion::ToolDefinition,
         tool::{Tool, ToolEmbedding},
     },
-    SolanaAgentKit,
+    SolAgent,
 };
 use solagent_plugin_solana::{close_empty_token_accounts, CloseEmptyTokenAccountsData};
 use std::sync::Arc;
@@ -36,11 +36,11 @@ pub struct CloseEmptyTokenAccountsOutput {
 pub struct CloseEmptyTokenAccountsError;
 
 pub struct CloseEmptyTokenAccounts {
-    agent: Arc<SolanaAgentKit>,
+    agent: Arc<SolAgent>,
 }
 
 impl CloseEmptyTokenAccounts {
-    pub fn new(agent: Arc<SolanaAgentKit>) -> Self {
+    pub fn new(agent: Arc<SolAgent>) -> Self {
         CloseEmptyTokenAccounts { agent }
     }
 }
@@ -106,7 +106,7 @@ pub struct InitError;
 impl ToolEmbedding for CloseEmptyTokenAccounts {
     type InitError = InitError;
     type Context = ();
-    type State = Arc<SolanaAgentKit>;
+    type State = Arc<SolAgent>;
 
     fn init(state: Self::State, _context: Self::Context) -> Result<Self, Self::InitError> {
         Ok(CloseEmptyTokenAccounts { agent: state })

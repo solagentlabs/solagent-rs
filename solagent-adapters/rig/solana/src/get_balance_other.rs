@@ -19,7 +19,7 @@ use solagent_core::{
         tool::{Tool, ToolEmbedding},
     },
     solana_sdk::pubkey::Pubkey,
-    SolanaAgentKit,
+    SolAgent,
 };
 use solagent_parameters::parameters;
 use solagent_plugin_solana::get_balance_other;
@@ -41,11 +41,11 @@ pub struct GetBalanceOtherOutput {
 pub struct GetBalanceOtherError;
 
 pub struct GetBalanceOther {
-    agent: Arc<SolanaAgentKit>,
+    agent: Arc<SolAgent>,
 }
 
 impl GetBalanceOther {
-    pub fn new(agent: Arc<SolanaAgentKit>) -> Self {
+    pub fn new(agent: Arc<SolAgent>) -> Self {
         GetBalanceOther { agent }
     }
 }
@@ -96,7 +96,7 @@ pub struct InitError;
 impl ToolEmbedding for GetBalanceOther {
     type InitError = InitError;
     type Context = ();
-    type State = Arc<SolanaAgentKit>;
+    type State = Arc<SolAgent>;
 
     fn init(_state: Self::State, _context: Self::Context) -> Result<Self, Self::InitError> {
         Ok(GetBalanceOther { agent: _state })

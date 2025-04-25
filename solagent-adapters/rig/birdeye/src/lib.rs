@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 use solagent_core::{
     rig::{completion::ToolDefinition, tool::Tool},
-    SolanaAgentKit,
+    SolAgent,
 };
 use solagent_parameters::parameters;
 use solagent_plugin_birdeye::{
@@ -30,11 +30,11 @@ pub struct MarketDataOutput {
 pub struct MarketDataError;
 
 pub struct MarketData {
-    agent: Arc<SolanaAgentKit>,
+    agent: Arc<SolAgent>,
 }
 
 impl MarketData {
-    pub fn new(agent: Arc<SolanaAgentKit>) -> Self {
+    pub fn new(agent: Arc<SolAgent>) -> Self {
         MarketData { agent }
     }
 }
@@ -83,11 +83,11 @@ pub struct TokenOverviewOutput {
 pub struct TokenOverviewError;
 
 pub struct TokenOverview {
-    agent: Arc<SolanaAgentKit>,
+    agent: Arc<SolAgent>,
 }
 
 impl TokenOverview {
-    pub fn new(agent: Arc<SolanaAgentKit>) -> Self {
+    pub fn new(agent: Arc<SolAgent>) -> Self {
         TokenOverview { agent }
     }
 }
@@ -136,11 +136,11 @@ pub struct WalletPortfoioOutput {
 pub struct WalletPortfoioError;
 
 pub struct WalletPortfoio {
-    agent: Arc<SolanaAgentKit>,
+    agent: Arc<SolAgent>,
 }
 
 impl WalletPortfoio {
-    pub fn new(agent: Arc<SolanaAgentKit>) -> Self {
+    pub fn new(agent: Arc<SolAgent>) -> Self {
         WalletPortfoio { agent }
     }
 }

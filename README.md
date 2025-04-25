@@ -21,7 +21,7 @@ solagent-plugin-birdeye = "0.1.7"
 ```
 * Create agent
 ```rust
-use solagent_core::{ConfigBuilder, SolanaAgentKit};
+use solagent_core::{ConfigBuilder, SolAgent};
 use solagent_plugin_birdeye::get_token_metadata;
 use solagent_wallet_solana::Wallet;
 
@@ -30,7 +30,7 @@ async fn main() {
     let wallet = Wallet::from_env("SOLANA_WALLET").unwrap();
     let config = ConfigBuilder::default().birdeye_api_key("api_key".into()).build();
 
-    let agent = SolanaAgentKit::new(wallet, "https://api.devnet.solana.com", config);
+    let agent = SolAgent::new(wallet, "https://api.devnet.solana.com", config);
     let data = get_token_metadata(&agent, "So11111111111111111111111111111111111111112")
         .await
         .unwrap();

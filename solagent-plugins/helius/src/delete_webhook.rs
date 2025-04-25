@@ -12,18 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use solagent_core::SolanaAgentKit;
+use solagent_core::SolAgent;
 
 /// Deletes a Helius Webhook by its ID.
 ///
 /// # Arguments
-/// * `agent` - An instance of SolanaAgentKit (with .config.HELIUS_API_KEY)
+/// * `agent` - An instance of SolAgent (with .config.HELIUS_API_KEY)
 /// * `webhook_id` - The unique ID of the webhook to delete
 ///
 /// # Returns
 /// The response body from the Helius API (which may contain status or other info)
 pub async fn delete_webhook(
-    agent: &SolanaAgentKit,
+    agent: &SolAgent,
     webhook_id: &str,
 ) -> Result<serde_json::Value, Box<dyn std::error::Error>> {
     // Get the Helius API key from the agent's configuration

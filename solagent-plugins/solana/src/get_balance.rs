@@ -15,7 +15,7 @@
 use solagent_core::{
     solana_client::client_error::ClientError,
     solana_sdk::{native_token::LAMPORTS_PER_SOL, pubkey::Pubkey},
-    SolanaAgentKit,
+    SolAgent,
 };
 use std::str::FromStr;
 
@@ -23,14 +23,14 @@ use std::str::FromStr;
 ///
 /// # Parameters
 ///
-/// - `agent`: An instance of `SolanaAgentKit`.
+/// - `agent`: An instance of `SolAgent`.
 /// - `token_address`: An optional SPL token mint address. If not provided, returns the SOL balance.
 ///
 /// # Returns
 ///
 /// A `Result` that resolves to the balance as a number (in UI units) or an error if the account doesn't exist.
 pub async fn get_balance(
-    agent: &SolanaAgentKit,
+    agent: &SolAgent,
     token_address: Option<String>,
 ) -> Result<f64, ClientError> {
     if let Some(token_address) = token_address {

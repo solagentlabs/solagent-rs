@@ -17,7 +17,7 @@ use reqwest::header::{HeaderMap, HeaderValue, CONTENT_TYPE};
 use serde::{Deserialize, Serialize};
 use solagent_core::{
     solana_sdk::{commitment_config::CommitmentConfig, transaction::VersionedTransaction},
-    SolanaAgentKit,
+    SolAgent,
 };
 
 #[derive(Serialize)]
@@ -35,14 +35,14 @@ struct StakeResponse {
 ///
 /// # Arguments
 ///
-/// * `agent` - SolanaAgentKit instance
+/// * `agent` - SolAgent instance
 /// * `amount` - Amount of SOL to stake
 ///
 /// # Returns
 ///
 /// Transaction signature
 pub async fn stake_with_solayer(
-    agent: &SolanaAgentKit,
+    agent: &SolAgent,
     amount: f64,
 ) -> Result<String, Box<dyn std::error::Error>> {
     let url = format!(

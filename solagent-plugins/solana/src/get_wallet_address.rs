@@ -12,15 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use solagent_core::SolanaAgentKit;
+use solagent_core::SolAgent;
 
 /// Get the agent's wallet address.
 ///
 /// # Parameters
-/// - `agent`: A `SolanaAgentKit` instance.
+/// - `agent`: A `SolAgent` instance.
 ///
 /// # Returns
 /// A string representing the wallet address in base58 format.
-pub fn get_wallet_address(agent: &SolanaAgentKit) -> String {
+pub fn get_wallet_address(agent: &SolAgent) -> String {
     agent.wallet.pubkey.to_string()
 }

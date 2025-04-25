@@ -16,7 +16,7 @@ use serde::{Deserialize, Serialize};
 use solagent_core::{
     solana_client::rpc_request::TokenAccountsFilter,
     solana_sdk::{instruction::Instruction, pubkey::Pubkey, transaction::Transaction},
-    SolanaAgentKit,
+    SolAgent,
 };
 use spl_token::instruction::close_account;
 
@@ -64,13 +64,13 @@ impl CloseEmptyTokenAccountsData {
 ///
 /// # Parameters
 ///
-/// - `agent`: An instance of `SolanaAgentKit`.
+/// - `agent`: An instance of `SolAgent`.
 ///
 /// # Returns
 ///
 /// Transaction signature and total number of accounts closed or an error if the account doesn't exist.
 pub async fn close_empty_token_accounts(
-    agent: &SolanaAgentKit,
+    agent: &SolAgent,
 ) -> Result<CloseEmptyTokenAccountsData, Box<dyn std::error::Error>> {
     let max_instructions = 40_u32;
     let mut transaction: Vec<Instruction> = vec![];

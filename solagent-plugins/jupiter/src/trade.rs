@@ -21,7 +21,7 @@ use solagent_core::{
         commitment_config::CommitmentConfig, program_pack::Pack, pubkey::Pubkey,
         transaction::VersionedTransaction,
     },
-    SolanaAgentKit,
+    SolAgent,
 };
 use spl_token::state::Mint;
 use std::str::FromStr;
@@ -57,7 +57,7 @@ struct QuoteResponse {
 ///
 /// # Arguments
 ///
-/// * `agent` - SolanaAgentKit instance
+/// * `agent` - SolAgent instance
 /// * `output_mint` - Target token mint address
 /// * `input_amount` - Amount to swap (in token decimals)
 /// * `input_mint` - Source token mint address (defaults to SOL)
@@ -67,7 +67,7 @@ struct QuoteResponse {
 ///
 /// Transaction signature as a string
 pub async fn trade(
-    agent: &SolanaAgentKit,
+    agent: &SolAgent,
     output_mint: &str,
     input_amount: f64,
     input_mint: Option<String>,

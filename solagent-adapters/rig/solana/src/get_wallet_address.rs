@@ -18,7 +18,7 @@ use solagent_core::{
         completion::ToolDefinition,
         tool::{Tool, ToolEmbedding},
     },
-    SolanaAgentKit,
+    SolAgent,
 };
 use solagent_plugin_solana::get_wallet_address;
 use std::sync::Arc;
@@ -36,11 +36,11 @@ pub struct GetWalletAddressOutput {
 pub struct GetWalletAddressError;
 
 pub struct GetWalletAddress {
-    agent: Arc<SolanaAgentKit>,
+    agent: Arc<SolAgent>,
 }
 
 impl GetWalletAddress {
-    pub fn new(agent: Arc<SolanaAgentKit>) -> Self {
+    pub fn new(agent: Arc<SolAgent>) -> Self {
         GetWalletAddress { agent }
     }
 }
@@ -90,7 +90,7 @@ pub struct InitError;
 impl ToolEmbedding for GetWalletAddress {
     type InitError = InitError;
     type Context = ();
-    type State = Arc<SolanaAgentKit>;
+    type State = Arc<SolAgent>;
 
     fn init(_state: Self::State, _context: Self::Context) -> Result<Self, Self::InitError> {
         Ok(GetWalletAddress { agent: _state })

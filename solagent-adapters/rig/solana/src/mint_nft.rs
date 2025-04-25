@@ -19,7 +19,7 @@ use solagent_core::{
         tool::{Tool, ToolEmbedding},
     },
     solana_sdk::pubkey::Pubkey,
-    SolanaAgentKit,
+    SolAgent,
 };
 use solagent_parameters::parameters;
 use solagent_plugin_solana::{mint_nft_to_collection, NFTMetadata};
@@ -42,11 +42,11 @@ pub struct MintNFTOutput {
 pub struct MintNFTError;
 
 pub struct MintNFT {
-    agent: Arc<SolanaAgentKit>,
+    agent: Arc<SolAgent>,
 }
 
 impl MintNFT {
-    pub fn new(agent: Arc<SolanaAgentKit>) -> Self {
+    pub fn new(agent: Arc<SolAgent>) -> Self {
         MintNFT { agent }
     }
 }
@@ -146,7 +146,7 @@ pub struct InitError;
 impl ToolEmbedding for MintNFT {
     type InitError = InitError;
     type Context = ();
-    type State = Arc<SolanaAgentKit>;
+    type State = Arc<SolAgent>;
 
     fn init(state: Self::State, _context: Self::Context) -> Result<Self, Self::InitError> {
         Ok(MintNFT { agent: state })

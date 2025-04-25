@@ -13,7 +13,7 @@
 // limitations under the License.
 
 use serde::{Deserialize, Serialize};
-use solagent_core::SolanaAgentKit;
+use solagent_core::SolAgent;
 
 #[derive(Deserialize, Serialize)]
 pub struct HeliusWebhookResponse {
@@ -22,7 +22,7 @@ pub struct HeliusWebhookResponse {
 }
 
 pub async fn create_webhook(
-    agent: &SolanaAgentKit,
+    agent: &SolAgent,
     account_addresses: Vec<String>,
     webhook_url: String,
 ) -> Result<HeliusWebhookResponse, Box<dyn std::error::Error>> {

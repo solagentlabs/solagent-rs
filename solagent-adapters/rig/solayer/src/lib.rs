@@ -4,7 +4,7 @@ use solagent_core::{
         completion::ToolDefinition,
         tool::Tool,
     },
-    SolanaAgentKit,
+    SolAgent,
 };
 use solagent_parameters::parameters;
 use solagent_plugin_solayer::stake_with_solayer;
@@ -25,11 +25,11 @@ pub struct StakeWithSolayerOutput {
 pub struct StakeWithSolayerError;
 
 pub struct StakeWithSolayer {
-    agent: Arc<SolanaAgentKit>,
+    agent: Arc<SolAgent>,
 }
 
 impl StakeWithSolayer {
-    pub fn new(agent: Arc<SolanaAgentKit>) -> Self {
+    pub fn new(agent: Arc<SolAgent>) -> Self {
         StakeWithSolayer { agent }
     }
 }

@@ -4,7 +4,7 @@ use solagent_core::{
         completion::ToolDefinition,
         tool::Tool,
     },
-    SolanaAgentKit,
+    SolAgent,
 };
 use solagent_parameters::parameters;
 use solagent_plugin_helius::delete_webhook;
@@ -25,11 +25,11 @@ pub struct DeleteWebHookOutput {
 pub struct DeleteWebHookError;
 
 pub struct DeleteWebHook {
-    agent: Arc<SolanaAgentKit>,
+    agent: Arc<SolAgent>,
 }
 
 impl DeleteWebHook {
-    pub fn new(agent: Arc<SolanaAgentKit>) -> Self {
+    pub fn new(agent: Arc<SolAgent>) -> Self {
         DeleteWebHook { agent }
     }
 }

@@ -27,7 +27,7 @@ use solagent_core::{
         system_instruction, system_program,
         {commitment_config::CommitmentConfig, transaction::Transaction},
     },
-    SolanaAgentKit,
+    SolAgent,
 };
 use spl_associated_token_account::get_associated_token_address;
 use spl_token::instruction as spl_token_instruction;
@@ -36,7 +36,7 @@ use spl_token::instruction as spl_token_instruction;
 ///
 /// # Parameters
 ///
-/// - `agent`: An instance of `SolanaAgentKit`.
+/// - `agent`: An instance of `SolAgent`.
 /// - `name`: Name of the token.
 /// - `uri`: URI for the token metadata.
 /// - `symbol`: Symbol of the token.
@@ -47,7 +47,7 @@ use spl_token::instruction as spl_token_instruction;
 ///
 /// An object containing the token mint address.
 pub async fn deploy_token(
-    agent: &SolanaAgentKit,
+    agent: &SolAgent,
     name: String,
     uri: String,
     symbol: String,

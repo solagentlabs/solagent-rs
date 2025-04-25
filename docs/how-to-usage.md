@@ -25,9 +25,9 @@ let wallet = Wallet::from_env("SOLANA_WALLET_VARIABLE");
 let config = ConfigBuilder::default().openai_api_key("test_api_key".to_string()).build();
 ```
 
-2. New SolanaAgentKit object
+2. New SolAgent object
 ```rust
-let agent = SolanaAgentKit::new(wallet, "https://api.devnet.solana.com", config);
+let agent = SolAgent::new(wallet, "https://api.devnet.solana.com", config);
 ```
 
 3. Configure your tools for the framework you want to use(currently rig supported only)

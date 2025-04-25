@@ -13,7 +13,7 @@
 // limitations under the License.
 
 use serde::{Deserialize, Serialize};
-use solagent_core::SolanaAgentKit;
+use solagent_core::SolAgent;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct HeliusWebhookIdResponse {
@@ -27,13 +27,13 @@ pub struct HeliusWebhookIdResponse {
 /// Retrieves a Helius Webhook by ID, returning only the specified fields.
 ///
 /// # Arguments
-/// * `agent` - An instance of SolanaAgentKit (with .config.HELIUS_API_KEY)
+/// * `agent` - An instance of SolAgent (with .config.HELIUS_API_KEY)
 /// * `webhook_id` - The unique ID of the webhook to delete
 ///
 /// # Returns
 /// A HeliusWebhook object containing { wallet, webhookURL, transactionTypes, accountAddresses, webhookType }
 pub async fn get_webhook(
-    agent: &SolanaAgentKit,
+    agent: &SolAgent,
     webhook_id: &str,
 ) -> Result<HeliusWebhookIdResponse, Box<dyn std::error::Error>> {
     // Get the Helius API key from the agent's configuration

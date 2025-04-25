@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 use solagent_core::{
     rig::{completion::ToolDefinition, tool::Tool},
-    SolanaAgentKit,
+    SolAgent,
 };
 use solagent_parameters::parameters;
 use solagent_plugin_jupiter::stake_with_jup;
@@ -22,11 +22,11 @@ pub struct StakeWithJupOutput {
 pub struct StakeWithJupError;
 
 pub struct StakeWithJup {
-    agent: Arc<SolanaAgentKit>,
+    agent: Arc<SolAgent>,
 }
 
 impl StakeWithJup {
-    pub fn new(agent: Arc<SolanaAgentKit>) -> Self {
+    pub fn new(agent: Arc<SolAgent>) -> Self {
         StakeWithJup { agent }
     }
 }
