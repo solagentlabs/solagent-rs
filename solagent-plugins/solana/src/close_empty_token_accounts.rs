@@ -15,10 +15,11 @@
 use serde::{Deserialize, Serialize};
 use solagent_core::{
     solana_client::rpc_request::TokenAccountsFilter,
-    solana_sdk::{instruction::Instruction, pubkey::Pubkey, transaction::Transaction},
+    solana_sdk::{instruction::Instruction, pubkey::Pubkey, keypair::Keypair, client::Client,transaction::Transaction},
     SolAgent,
 };
 use spl_token::instruction::close_account;
+use solagent_wallet_solana::wallet::SolAgentWallet;
 
 pub const USDC: &str = "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v";
 
@@ -64,24 +65,26 @@ impl CloseEmptyTokenAccountsData {
 ///
 /// # Parameters
 ///
-/// - `agent`: An instance of `SolAgent`.
+/// - `wallet`: An instance of `SolAgentWallet`.
 ///
 /// # Returns
 ///
 /// Transaction signature and total number of accounts closed or an error if the account doesn't exist.
 pub async fn close_empty_token_accounts(
-    agent: &SolAgent,
+    wallet: &SolAgentWallet,
 ) -> Result<CloseEmptyTokenAccountsData, Box<dyn std::error::Error>> {
     let max_instructions = 40_u32;
     let mut transaction: Vec<Instruction> = vec![];
     let mut closed_size = 0;
     let token_programs = vec![spl_token::ID, spl_token_2022::ID];
 
+    let rpc_url = wallet.rpc_url.clone();
+    let client = Client::new(rpc_url)?;
+
     for token_program in token_programs {
-        let accounts = agent
-            .connection
+        let accounts = client
             .get_token_accounts_by_owner(
-                &agent.wallet.pubkey,
+                &wallet.pubkey,
                 TokenAccountsFilter::ProgramId(token_program.to_owned()),
             )
             .expect("get_token_accounts_by_owner");
@@ -108,9 +111,9 @@ pub async fn close_empty_token_accounts(
                         if let Ok(instruct) = close_account(
                             &token_program,
                             &account_pubkey,
-                            &agent.wallet.pubkey,
-                            &agent.wallet.pubkey,
-                            &[&agent.wallet.pubkey],
+                            &wallet.pubkey,
+                            &wallet.pubkey,
+                            &[&wallet.pubkey],
                         ) {
                             transaction.push(instruct);
                         }
@@ -125,16 +128,15 @@ pub async fn close_empty_token_accounts(
     }
 
     // Create and send transaction
-    let recent_blockhash = agent.connection.get_latest_blockhash()?;
+    let recent_blockhash = client.get_latest_blockhash()?;
     let transaction = Transaction::new_signed_with_payer(
         &transaction,
-        Some(&agent.wallet.pubkey),
-        &[&agent.wallet.keypair],
+        Some(&wallet.pubkey),
+        &[&wallet.keypair],
         recent_blockhash,
     );
 
-    let signature = agent
-        .connection
+    let signature = client
         .send_and_confirm_transaction(&transaction)?;
     let data = CloseEmptyTokenAccountsData::new(signature.to_string(), closed_size);
     Ok(data)
