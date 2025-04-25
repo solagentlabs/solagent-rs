@@ -1,8 +1,11 @@
+use anyhow::Result;
 use rig::agent::Agent;
 use rig::completion::Prompt;
-use rig::providers::{openai, gemini, anthropic, cohere, perplexity};
-use anyhow::Result;
 use rig::providers::gemini::completion::CompletionModel;
+use rig::providers::{anthropic, cohere, gemini, openai, perplexity};
+use rig::tool::Tool;
+
+use crate::tool::SolAgentTool;
 
 /// Represents the model types supported by SolAgentCompletionModel.
 /// The `String` field specifies the model name, such as "gpt-4" or "gemini-1.0".
@@ -40,34 +43,78 @@ impl SolAgentModel {
     /// # Returns
     ///
     /// * `Result<SolAgentCompletionModel>` - The dynamically created agent wrapped in the `SolAgentCompletionModel` enum.
-    pub fn create_agent(
+    pub fn create_agent<T: Tool + 'static + Clone>(
         &self,
-        tools: Vec<Box<dyn std::any::Any + Send + Sync>>,
+        tools: Vec<SolAgentTool<T>>,
     ) -> Result<SolAgentCompletionModel> {
         match self {
             SolAgentModel::OpenAI(model_name) => {
                 let client = openai::Client::from_env();
-                let agent = client.agent(model_name).build();
+                let tools: Vec<&T> = tools.iter().map(|tool| tool.get_tool()).collect();
+
+                let mut agent_builder = client.agent(model_name);
+
+                for tool in tools {
+                    agent_builder = agent_builder.tool(tool.clone());
+                }
+
+                let agent = agent_builder.build();
                 Ok(SolAgentCompletionModel::OpenAI(agent))
             }
             SolAgentModel::Gemini(model_name) => {
                 let client = gemini::Client::from_env();
-                let agent = client.agent(model_name).build();
+                let tools: Vec<&T> = tools.iter().map(|tool| tool.get_tool()).collect();
+
+                let mut agent_builder = client.agent(model_name);
+
+                for tool in tools {
+                    agent_builder = agent_builder.tool(tool.clone());
+                }
+
+                let agent = agent_builder.build();
+
                 Ok(SolAgentCompletionModel::Gemini(agent))
             }
             SolAgentModel::Anthropic(model_name) => {
                 let client = anthropic::Client::from_env();
-                let agent = client.agent(model_name).build();
+                let tools: Vec<&T> = tools.iter().map(|tool| tool.get_tool()).collect();
+
+                let mut agent_builder = client.agent(model_name);
+
+                for tool in tools {
+                    agent_builder = agent_builder.tool(tool.clone());
+                }
+
+                let agent = agent_builder.build();
+
                 Ok(SolAgentCompletionModel::Anthropic(agent))
             }
             SolAgentModel::Cohere(model_name) => {
                 let client = cohere::Client::from_env();
-                let agent = client.agent(model_name).build();
+                let tools: Vec<&T> = tools.iter().map(|tool| tool.get_tool()).collect();
+
+                let mut agent_builder = client.agent(model_name);
+
+                for tool in tools {
+                    agent_builder = agent_builder.tool(tool.clone());
+                }
+
+                let agent = agent_builder.build();
+
                 Ok(SolAgentCompletionModel::Cohere(agent))
             }
             SolAgentModel::Perplexity(model_name) => {
                 let client = perplexity::Client::from_env();
-                let agent = client.agent(model_name).build();
+                let tools: Vec<&T> = tools.iter().map(|tool| tool.get_tool()).collect();
+
+                let mut agent_builder = client.agent(model_name);
+
+                for tool in tools {
+                    agent_builder = agent_builder.tool(tool.clone());
+                }
+
+                let agent = agent_builder.build();
+
                 Ok(SolAgentCompletionModel::Perplexity(agent))
             }
         }
