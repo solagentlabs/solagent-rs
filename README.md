@@ -1,46 +1,55 @@
-
-
-# SOLAGENT-RS
-* **[LLM router]()**: Rig
-* **[Wallets]()**: keypair, solana
-* **[tools]()**: Birdeye, dexscreener, solana, jupiter, helius and more
-* **[Chains]()**: Solana
+# SolAgent
+SolAgent SDK: The AI Agent Development Kit for Solana.
 
 ## Quick start
 * Add dependencies
 ```toml
 [dependencies]
 # add wallet
-solagent-wallet-solana = "0.1.4"
+solagent-wallet-solana = "0.2.0"
 
 # add core
-solagent-core = "0.1.6"
+solagent-core = "0.2.0"
 
-# add plugin
-solagent-plugin-birdeye = "0.1.7"
+# add tools
+solagent-rig-solana = "0.2.0"
 ```
-* Create agent
+* Create SolAgent
 ```rust
-use solagent_core::{ConfigBuilder, SolAgent};
-use solagent_plugin_birdeye::get_token_metadata;
-use solagent_wallet_solana::Wallet;
+use solagent_core::{model::SolAgentModel, SolAgent};
+use solagent_rig_solana::get_tps::{self, GetTpsOutput};
+use solagent_wallet_solana::SolAgentWallet;
+use std::sync::Arc;
 
 #[tokio::main]
 async fn main() {
-    let wallet = Wallet::from_env("SOLANA_WALLET").unwrap();
-    let config = ConfigBuilder::default().birdeye_api_key("api_key".into()).build();
+    // Step 1: import your wallet
+    let wallet = SolAgentWallet::new("https://api.mainnet-beta.solana.com");
 
-    let agent = SolAgent::new(wallet, "https://api.devnet.solana.com", config);
-    let data = get_token_metadata(&agent, "So11111111111111111111111111111111111111112")
-        .await
-        .unwrap();
-    println!("{:#?}", data);
+    // Step 2: Create SolAgent
+    let solagent = Arc::new(SolAgent::new(wallet, None));
+
+    // Step 3: Add tools you want to use
+    let tools = vec![get_tps::get_tool(solagent.clone())];
+
+    // Step 4: Select the model you want to use
+    let model = SolAgentModel::Ollama("llama3.2".to_string());
+
+    // Step 5: tell it what you want to do.
+    let prompt = "Get Tps on solana";
+
+    // Wait for the result
+    let result = solagent
+        .prompt(
+            model,
+            tools,
+            prompt,
+        )
+        .await?;
+
+    println!("{:#?}", result);
 }
 ```
-## Table of Contens
-* [How-To-Use](./docs/how-to-usage.md)
-* [How-To-Add-NewFeature](./docs/hot-to-add-feature.md)
-
 
 ## Packages
 ### Core
