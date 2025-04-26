@@ -4,7 +4,7 @@ use solagent_core::{
     solana_sdk::{
         commitment_config::CommitmentConfig, pubkey::Pubkey, transaction::VersionedTransaction,
     },
-    SolanaAgentKit,
+    SolAgent,
 };
 
 #[derive(Serialize)]
@@ -43,7 +43,7 @@ pub struct GibworkCreateTaskResponse {
 ///
 /// # Arguments
 ///
-/// * `agent` - SolanaAgentKit instance
+/// * `agent` - SolAgent instance
 /// * `title` - Title of the task
 /// * `content` - Description of the task
 /// * `requirements` - Requirements to complete the task
@@ -57,7 +57,7 @@ pub struct GibworkCreateTaskResponse {
 /// Object containing task creation transaction and generated taskId
 #[allow(clippy::too_many_arguments)]
 pub async fn create_gibwork_task(
-    agent: &SolanaAgentKit,
+    agent: &SolAgent,
     title: &str,
     content: &str,
     requirements: &str,

@@ -6,7 +6,7 @@ use solagent_core::{
         commitment_config::CommitmentConfig, signature::Signer, signer::keypair::Keypair,
         transaction::VersionedTransaction,
     },
-    SolanaAgentKit,
+    SolAgent,
 };
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -36,7 +36,7 @@ pub struct TokenMetadata {
 ///
 /// # Arguments
 ///
-/// - `agent` - An instance of `SolanaAgentKit`.
+/// - `agent` - An instance of `SolAgent`.
 /// - `tokenName` - The name of the token.
 /// - `tokenTicker` - The ticker of the token.
 /// - `description` - The description of the token.
@@ -65,7 +65,7 @@ pub struct TokenMetadata {
 /// https://pumpportal.fun/creation
 ///
 pub async fn launch_token_pumpfun(
-    agent: &SolanaAgentKit,
+    agent: &SolAgent,
     token_name: &str,
     token_symbol: &str,
     description: &str,
@@ -116,7 +116,7 @@ pub async fn launch_token_pumpfun(
 
 // try signed vtx: NotEnoughSigners -> mint_keypair is needed
 async fn sign_and_send_tx(
-    agent: &SolanaAgentKit,
+    agent: &SolAgent,
     vtx: &mut VersionedTransaction,
     mint_keypair: &Keypair,
 ) -> Result<String, Box<std::io::Error>> {
@@ -218,7 +218,7 @@ async fn fetch_token_metadata(
 }
 
 async fn request_pumpportal_tx(
-    agent: &SolanaAgentKit,
+    agent: &SolAgent,
     client: &ReqwestClient,
     token_matedata: &TokenMetadata,
     mint_keypair: &Keypair,

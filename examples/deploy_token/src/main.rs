@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use solagent_core::{solana_sdk::signature::Keypair, Config, SolanaAgentKit};
+use solagent_core::{solana_sdk::signature::Keypair, Config, SolAgent};
 use solagent_plugin_solana::deploy_token;
 
 /// Example on devnet
@@ -26,7 +26,7 @@ async fn main() {
     let private_key = keypair.to_base58_string();
 
     let config = Config { cookie_api_key: Some("".to_string()), ..Default::default() };
-    let agent = SolanaAgentKit::new(&private_key, "https://api.devnet.solana.com", config);
+    let agent = SolAgent::new(&private_key, "https://api.devnet.solana.com", config);
 
     let name = "Solagent".to_string();
     let uri = "solagent.rs".to_string();

@@ -1,24 +1,30 @@
-// Copyright 2025 zTgx
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+pub mod close_empty_account;
+// pub mod deploy_collection;
+// pub mod deploy_token;
+// pub mod get_balance;
+// pub mod get_balance_other;
 
-pub mod close_empty_token_accounts;
-pub mod deploy_collection;
-pub mod deploy_token;
-pub mod get_balance;
-pub mod get_balance_other;
 pub mod get_tps;
-pub mod get_wallet_address;
-pub mod mint_nft;
-pub mod request_faucet_funds;
-pub mod transfer;
+
+// pub mod get_wallet_address;
+// pub mod mint_nft;
+// pub mod request_faucet_funds;
+// pub mod transfer;
+
+use solagent_core::{tool::SolAgentTool, SolAgent};
+use std::sync::Arc;
+use rig::tool::{ToolSetBuilder, ToolSet, Tool};
+use crate::close_empty_account::CloseEmptyTokenAccounts;
+use crate::get_tps::GetTps;
+
+pub fn get_solana_tools(solagent: Arc<SolAgent>) -> SolAgentTool {
+    let tps = GetTps::new(solagent.clone());
+    let close = CloseEmptyTokenAccounts::new(solagent.clone());
+    
+    let toolset = ToolSet::builder()
+        .static_tool(tps)
+    	.static_tool(close)
+	    .build();
+
+	SolAgentTool::new(vec![GetTps::NAME.to_string(), CloseEmptyTokenAccounts::NAME.to_string()], toolset)
+}

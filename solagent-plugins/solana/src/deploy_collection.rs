@@ -29,7 +29,7 @@ use solagent_core::{
         system_instruction, sysvar,
         transaction::Transaction,
     },
-    SolanaAgentKit,
+    SolAgent,
 };
 use spl_associated_token_account::instruction::create_associated_token_account;
 
@@ -37,14 +37,14 @@ use spl_associated_token_account::instruction::create_associated_token_account;
 ///
 /// # Parameters
 ///
-/// - `agent`: An instance of `SolanaAgentKit`.
+/// - `agent`: An instance of `SolAgent`.
 /// - `options`: Collection options including name, URI, royalties, and creators.
 ///
 /// # Returns
 ///
 /// An object containing the collection address and metadata.
 pub async fn deploy_collection(
-    agent: &SolanaAgentKit,
+    agent: &SolAgent,
     options: &NFTMetadata,
 ) -> Result<DeployedData, ClientError> {
     // Create a new mint for the collection

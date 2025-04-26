@@ -18,7 +18,7 @@ use solagent_core::{
         completion::ToolDefinition,
         tool::{Tool, ToolEmbedding},
     },
-    SolanaAgentKit,
+    SolAgent,
 };
 use solagent_plugin_solana::request_faucet_funds;
 use std::sync::Arc;
@@ -36,10 +36,10 @@ pub struct RequestFaucetFundsOutput {
 pub struct RequestFaucetFundsError;
 
 pub struct RequestFaucetFunds {
-    agent: Arc<SolanaAgentKit>,
+    agent: Arc<SolAgent>,
 }
 impl RequestFaucetFunds {
-    pub fn new(agent: Arc<SolanaAgentKit>) -> Self {
+    pub fn new(agent: Arc<SolAgent>) -> Self {
         RequestFaucetFunds { agent }
     }
 }
@@ -92,7 +92,7 @@ pub struct InitError;
 impl ToolEmbedding for RequestFaucetFunds {
     type InitError = InitError;
     type Context = ();
-    type State = Arc<SolanaAgentKit>;
+    type State = Arc<SolAgent>;
 
     fn init(_state: Self::State, _context: Self::Context) -> Result<Self, Self::InitError> {
         Ok(RequestFaucetFunds { agent: _state })

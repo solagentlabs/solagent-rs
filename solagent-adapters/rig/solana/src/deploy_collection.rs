@@ -18,7 +18,7 @@ use solagent_core::{
         completion::ToolDefinition,
         tool::{Tool, ToolEmbedding},
     },
-    SolanaAgentKit,
+    SolAgent,
 };
 use solagent_parameters::parameters;
 use solagent_plugin_solana::{deploy_collection, NFTMetadata};
@@ -40,11 +40,11 @@ pub struct DeployCollectionOutput {
 pub struct DeployCollectionError;
 
 pub struct DeployCollection {
-    agent: Arc<SolanaAgentKit>,
+    agent: Arc<SolAgent>,
 }
 
 impl DeployCollection {
-    pub fn new(agent: Arc<SolanaAgentKit>) -> Self {
+    pub fn new(agent: Arc<SolAgent>) -> Self {
         DeployCollection { agent }
     }
 }
@@ -126,7 +126,7 @@ pub struct InitError;
 impl ToolEmbedding for DeployCollection {
     type InitError = InitError;
     type Context = ();
-    type State = Arc<SolanaAgentKit>;
+    type State = Arc<SolAgent>;
 
     fn init(state: Self::State, _context: Self::Context) -> Result<Self, Self::InitError> {
         Ok(DeployCollection { agent: state })

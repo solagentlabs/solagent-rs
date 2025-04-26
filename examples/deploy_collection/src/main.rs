@@ -14,7 +14,7 @@
 
 use solagent_core::{
     solana_sdk::{pubkey::Pubkey, signature::Keypair},
-    Config, SolanaAgentKit,
+    Config, SolAgent,
 };
 use solagent_plugin_solana::{deploy_collection, NFTMetadata};
 
@@ -29,7 +29,7 @@ async fn main() {
     let private_key = keypair.to_base58_string();
 
     let config = Config { cookie_api_key: Some("".to_string()), ..Default::default() };
-    let agent = SolanaAgentKit::new(&private_key, "https://api.devnet.solana.com", config);
+    let agent = SolAgent::new(&private_key, "https://api.devnet.solana.com", config);
 
     let name = "Solagent Collection";
     let uri = "uri";

@@ -5,7 +5,7 @@ use solagent_core::{
         completion::ToolDefinition,
         tool::Tool,
     },
-    SolanaAgentKit,
+    SolAgent,
 };
 use solagent_parameters::parameters;
 use solagent_plugin_pumpfun::{launch_token_pumpfun, PumpFunTokenOptions, PumpfunTokenResponse};
@@ -30,11 +30,11 @@ pub struct LaunchPumpfunTokenOutput {
 pub struct LaunchPumpfunTokenError;
 
 pub struct LaunchPumpfunToken {
-    agent: Arc<SolanaAgentKit>,
+    agent: Arc<SolAgent>,
 }
 
 impl LaunchPumpfunToken {
-    pub fn new(agent: Arc<SolanaAgentKit>) -> Self {
+    pub fn new(agent: Arc<SolAgent>) -> Self {
         LaunchPumpfunToken { agent }
     }
 }

@@ -1,5 +1,5 @@
 use anyhow::Result;
-use solagent_core::SolanaAgentKit;
+use solagent_core::SolAgent;
 
 mod primitive;
 pub use primitive::*;
@@ -8,14 +8,14 @@ pub use primitive::*;
 ///
 /// # Parameters
 ///
-/// * `agent` - An instance of SolanaAgentKit (with .config.birdeye_api_key)
+/// * `agent` - An instance of SolAgent (with .config.birdeye_api_key)
 ///
 /// - `address`: Address of a token
 ///
 /// # Returns
 ///
 /// A `Result` TokenOverviewResponse
-pub async fn get_token_overview(agent: &SolanaAgentKit, address: &str) -> Result<TokenOverviewResponse> {
+pub async fn get_token_overview(agent: &SolAgent, address: &str) -> Result<TokenOverviewResponse> {
     let api_key = agent
         .config
         .birdeye_api_key
@@ -43,14 +43,14 @@ pub async fn get_token_overview(agent: &SolanaAgentKit, address: &str) -> Result
 ///
 /// # Parameters
 ///
-/// * `agent` - An instance of SolanaAgentKit
+/// * `agent` - An instance of SolAgent
 ///
 /// - `address`: Address of a token
 ///
 /// # Returns
 ///
 /// A `Result` TokenMarketDataResponse
-pub async fn get_market_data(agent: &SolanaAgentKit, address: &str) -> Result<TokenMarketDataResponse> {
+pub async fn get_market_data(agent: &SolAgent, address: &str) -> Result<TokenMarketDataResponse> {
     let api_key = agent
         .config
         .birdeye_api_key
@@ -78,14 +78,14 @@ pub async fn get_market_data(agent: &SolanaAgentKit, address: &str) -> Result<To
 ///
 /// # Parameters
 ///
-/// * `agent` - An instance of SolanaAgentKit
+/// * `agent` - An instance of SolAgent
 ///
 /// - `address`: Address of a wallet
 ///
 /// # Returns
 ///
 /// A `WalletPortfolioResponse`
-pub async fn get_wallet_portfolio(agent: &SolanaAgentKit, wallet_address: &str) -> Result<WalletPortfolioResponse> {
+pub async fn get_wallet_portfolio(agent: &SolAgent, wallet_address: &str) -> Result<WalletPortfolioResponse> {
     let api_key = agent
         .config
         .birdeye_api_key
@@ -113,7 +113,7 @@ pub async fn get_wallet_portfolio(agent: &SolanaAgentKit, wallet_address: &str) 
 ///
 /// # Parameters
 ///
-/// * `agent` - An instance of SolanaAgentKit (with .config.birdeye_api_key)
+/// * `agent` - An instance of SolAgent (with .config.birdeye_api_key)
 ///
 /// - `params`: Query Params
 ///
@@ -121,7 +121,7 @@ pub async fn get_wallet_portfolio(agent: &SolanaAgentKit, wallet_address: &str) 
 ///
 /// A `Result` TokenHolderResponse
 pub async fn get_token_holders(
-    agent: &SolanaAgentKit,
+    agent: &SolAgent,
     query_params: TokenHolderQueryParams,
 ) -> Result<TokenHolderResponse> {
     let api_key = agent
@@ -155,14 +155,14 @@ pub async fn get_token_holders(
 ///
 /// # Parameters
 ///
-/// * `agent` - An instance of SolanaAgentKit (with .config.birdeye_api_key)
+/// * `agent` - An instance of SolAgent (with .config.birdeye_api_key)
 ///
 /// - `address`: Address of a token
 ///
 /// # Returns
 ///
 /// A `Result` TokenMetadataResponse
-pub async fn get_token_metadata(agent: &SolanaAgentKit, address: &str) -> Result<TokenMetadataResponse> {
+pub async fn get_token_metadata(agent: &SolAgent, address: &str) -> Result<TokenMetadataResponse> {
     let api_key = agent
         .config
         .birdeye_api_key
@@ -190,14 +190,14 @@ pub async fn get_token_metadata(agent: &SolanaAgentKit, address: &str) -> Result
 ///
 /// # Parameters
 ///
-/// * `agent` - An instance of SolanaAgentKit (with .config.birdeye_api_key)
+/// * `agent` - An instance of SolAgent (with .config.birdeye_api_key)
 ///
 /// - `address`: Address of a token
 ///
 /// # Returns
 ///
 /// A `Result` TokenPriceResponse
-pub async fn get_token_price(agent: &SolanaAgentKit, address: &str) -> Result<TokenPriceResponse> {
+pub async fn get_token_price(agent: &SolAgent, address: &str) -> Result<TokenPriceResponse> {
     let api_key = agent
         .config
         .birdeye_api_key
@@ -225,7 +225,7 @@ pub async fn get_token_price(agent: &SolanaAgentKit, address: &str) -> Result<To
 ///
 /// # Parameters
 ///
-/// * `agent` - An instance of SolanaAgentKit (with .config.birdeye_api_key)
+/// * `agent` - An instance of SolAgent (with .config.birdeye_api_key)
 ///
 /// - `query_params`: TokenPriceVolumeQueryParams
 ///
@@ -233,7 +233,7 @@ pub async fn get_token_price(agent: &SolanaAgentKit, address: &str) -> Result<To
 ///
 /// A `Result` TokenPriceVolumeResponse
 pub async fn get_token_price_volume(
-    agent: &SolanaAgentKit,
+    agent: &SolAgent,
     query_params: TokenPriceVolumeQueryParams,
 ) -> Result<TokenPriceVolumeResponse> {
     let api_key = agent
@@ -266,7 +266,7 @@ pub async fn get_token_price_volume(
 ///
 /// # Parameters
 ///
-/// * `agent` - An instance of SolanaAgentKit (with .config.birdeye_api_key)
+/// * `agent` - An instance of SolAgent (with .config.birdeye_api_key)
 ///
 /// - `query_params`: TokenTrendingQueryParams
 ///
@@ -274,7 +274,7 @@ pub async fn get_token_price_volume(
 ///
 /// A `Result` TokenTrendingResponse
 pub async fn get_token_trending(
-    agent: &SolanaAgentKit,
+    agent: &SolAgent,
     query_params: TokenTrendingQueryParams,
 ) -> Result<TokenTrendingResponse> {
     let api_key = agent
@@ -314,7 +314,7 @@ pub async fn get_token_trending(
 ///
 /// # Parameters
 ///
-/// * `agent` - An instance of SolanaAgentKit (with .config.birdeye_api_key)
+/// * `agent` - An instance of SolAgent (with .config.birdeye_api_key)
 ///
 /// - `query_params`: TokenMintOrBurnQueryParams
 ///
@@ -322,7 +322,7 @@ pub async fn get_token_trending(
 ///
 /// A `Result` TokenMintOrBurnResponse
 pub async fn get_token_mintburn_tx(
-    agent: &SolanaAgentKit,
+    agent: &SolAgent,
     query_params: TokenMintOrBurnQueryParams,
 ) -> Result<TokenMintOrBurnResponse> {
     let api_key = agent
@@ -364,7 +364,7 @@ pub async fn get_token_mintburn_tx(
 ///
 /// # Parameters
 ///
-/// * `agent` - An instance of SolanaAgentKit (with .config.birdeye_api_key)
+/// * `agent` - An instance of SolAgent (with .config.birdeye_api_key)
 ///
 /// - `query_params`: TokenOrMarketQueryParams
 ///
@@ -372,7 +372,7 @@ pub async fn get_token_mintburn_tx(
 ///
 /// A `Result` TokenOrMarketResponse
 pub async fn search_token_or_market_data(
-    agent: &SolanaAgentKit,
+    agent: &SolAgent,
     query_params: TokenOrMarketQueryParams,
 ) -> Result<TokenOrMarketResponse> {
     let api_key = agent

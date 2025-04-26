@@ -1,17 +1,24 @@
 [package]
 name = "solagent-rig-solana"
-version = "0.1.2"
+version = "0.2.0"
 edition = "2021"
 authors = ["zTgx <beautifularea@gmail.com>"]
-repository = "https://github.com/zTgx/solagent.rs"
+repository = "https://github.com/solagentlabs/solagent-rs"
 keywords = ["solagent", "rig", "solana"]
 license = "Apache-2.0"
 description = "solagent.rs rig solana"
 
 [dependencies]
-solagent-core = "0.1.6"
+# solagent-core = "0.1.6"
+# rig-core = "0.11"
+rig-core = { path = "../../../../../rig/rig-core" }
+solagent-core = { path = "../../../solagent-core" }
+solagent-wallet-solana = { path = "../../../solagent-wallet/solana" }
 solagent-parameters = "0.1.0"
-solagent-plugin-solana = "0.1.2"
+# solagent-plugin-solana = "0.1.2"
+solagent-plugin-solana = { path = "../../../solagent-plugins/solana" }
 serde = { version = "1.0", features = ["derive"] }
 thiserror = "2.0.9"
 serde_json = "1.0"
+anyhow = "1.0"
+solana-sdk = "2.2.2"

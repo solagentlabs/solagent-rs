@@ -4,7 +4,7 @@ use solagent_core::{
         completion::ToolDefinition,
         tool::Tool,
     },
-    SolanaAgentKit,
+    SolAgent,
 };
 use solagent_parameters::parameters;
 use solagent_plugin_helius::get_assets_by_owner;
@@ -26,11 +26,11 @@ pub struct GetAssetsByOwnerOutput {
 pub struct GetAssetsByOwnerError;
 
 pub struct GetAssetsByOwner {
-    agent: Arc<SolanaAgentKit>,
+    agent: Arc<SolAgent>,
 }
 
 impl GetAssetsByOwner {
-    pub fn new(agent: Arc<SolanaAgentKit>) -> Self {
+    pub fn new(agent: Arc<SolAgent>) -> Self {
         GetAssetsByOwner { agent }
     }
 }

@@ -14,7 +14,7 @@
 
 use serde::{Deserialize, Serialize};
 use serde_json::json;
-use solagent_core::SolanaAgentKit;
+use solagent_core::SolAgent;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct HeliusWebhookIdResponse {
@@ -28,13 +28,13 @@ pub struct HeliusWebhookIdResponse {
 /// Parse a Solana transaction using the Helius Enhanced Transactions API
 ///
 /// # Arguments
-/// * `agent` - An instance of SolanaAgentKit (with .config.HELIUS_API_KEY)
+/// * `agent` - An instance of SolAgent (with .config.HELIUS_API_KEY)
 /// * `transaction_id` - The transaction ID to parse
 ///
 /// # Returns
 /// Parsed transaction data
 pub async fn transaction_parse(
-    agent: &SolanaAgentKit,
+    agent: &SolAgent,
     transaction_id: &str,
 ) -> Result<serde_json::Value, Box<dyn std::error::Error>> {
     // Get the Helius API key from the agent's configuration

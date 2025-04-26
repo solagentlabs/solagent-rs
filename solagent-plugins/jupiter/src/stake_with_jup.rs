@@ -16,21 +16,21 @@ use anyhow::Result;
 use base64::{engine::general_purpose, Engine as _};
 use solagent_core::{
     solana_sdk::{commitment_config::CommitmentConfig, transaction::VersionedTransaction},
-    SolanaAgentKit,
+    SolAgent,
 };
 
 /// Stake SOL with Jupiter validator
 ///
 /// # Arguments
 ///
-/// * `agent` - SolanaAgentKit instance
+/// * `agent` - SolAgent instance
 /// * `amount` - Amount of SOL to stake (in SOL)
 ///
 /// # Returns
 ///
 /// Transaction signature as a string
 pub async fn stake_with_jup(
-    agent: &SolanaAgentKit,
+    agent: &SolAgent,
     amount: f64,
 ) -> Result<String, Box<dyn std::error::Error>> {
     // Convert SOL amount to lamports

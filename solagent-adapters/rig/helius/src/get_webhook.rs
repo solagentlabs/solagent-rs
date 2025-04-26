@@ -4,7 +4,7 @@ use solagent_core::{
         completion::ToolDefinition,
         tool::Tool,
     },
-    SolanaAgentKit,
+    SolAgent,
 };
 use solagent_parameters::parameters;
 use solagent_plugin_helius::{get_webhook, HeliusWebhookIdResponse};
@@ -25,11 +25,11 @@ pub struct GetWebHookOutput {
 pub struct GetWebHookError;
 
 pub struct GetWebHook {
-    agent: Arc<SolanaAgentKit>,
+    agent: Arc<SolAgent>,
 }
 
 impl GetWebHook {
-    pub fn new(agent: Arc<SolanaAgentKit>) -> Self {
+    pub fn new(agent: Arc<SolAgent>) -> Self {
         GetWebHook { agent }
     }
 }

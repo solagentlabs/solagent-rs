@@ -17,21 +17,21 @@ use solagent_core::{
     solana_sdk::{
         program_pack::Pack, pubkey::Pubkey, system_instruction, transaction::Transaction,
     },
-    SolanaAgentKit,
+    SolAgent,
 };
 use spl_associated_token_account::get_associated_token_address;
 use spl_token::{instruction::transfer as transfer_instruct, state::Mint};
 
 /// Transfer SOL or SPL tokens to a recipient
 ///
-/// `agent` - SolanaAgentKit instance
+/// `agent` - SolAgent instance
 /// `to` - Recipient's public key
 /// `amount` - Amount to transfer
 /// `mint` - Optional mint address for SPL tokens
 ///
 /// Returns the transaction signature.
 pub async fn transfer(
-    agent: &SolanaAgentKit,
+    agent: &SolAgent,
     to: &str,
     amount: u64,
     mint: Option<String>,
