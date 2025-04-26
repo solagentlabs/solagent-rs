@@ -13,14 +13,12 @@
 // limitations under the License.
 
 use serde::{Deserialize, Serialize};
-use solagent_core::{
-    rig::{
-        completion::ToolDefinition,
-        tool::{Tool, ToolEmbedding},
-    },
-    SolAgent,
-};
 use solagent_plugin_solana::get_tps;
+use rig::{
+    completion::ToolDefinition,
+    tool::{Tool, ToolEmbedding},
+};
+use solagent_wallet_solana::SolAgentWallet;
 use std::sync::Arc;
 
 #[derive(Deserialize)]
@@ -35,13 +33,14 @@ pub struct GetTpsOutput {
 #[error("GetTps error")]
 pub struct GetTpsError;
 
+#[derive(Debug, Clone)]
 pub struct GetTps {
-    agent: Arc<SolAgent>,
+    wallet: Arc<SolAgentWallet>,
 }
 
 impl GetTps {
-    pub fn new(agent: Arc<SolAgent>) -> Self {
-        GetTps { agent }
+    pub fn new(wallet: Arc<SolAgentWallet>) -> Self {
+        GetTps { wallet }
     }
 }
 
@@ -80,28 +79,20 @@ impl Tool for GetTps {
     }
 
     async fn call(&self, _args: Self::Args) -> Result<Self::Output, Self::Error> {
-        let tps = get_tps(&self.agent).await.expect("get_tps");
+        let tps = get_tps(&self.wallet).await.expect("get_tps");
 
         Ok(GetTpsOutput { tps })
     }
 }
 
-#[derive(Debug, thiserror::Error)]
-#[error("Init error")]
-pub struct InitError;
+// #[tool(
+//     description = "
+//     Get the current transactions per second (TPS) of the Solana network
+// ")]
+// pub async fn get_tps_tool(wallet: &SolAgentWallet) -> Result<GetTpsOutput> {
+//     let tps = get_tps(keypair)
+//     .await
+//     .expect("get_tps");
 
-impl ToolEmbedding for GetTps {
-    type InitError = InitError;
-    type Context = ();
-    type State = Arc<SolAgent>;
-
-    fn init(_state: Self::State, _context: Self::Context) -> Result<Self, Self::InitError> {
-        Ok(GetTps { agent: _state })
-    }
-
-    fn embedding_docs(&self) -> Vec<String> {
-        vec!["Get the current transactions per second (TPS) of the Solana network".into()]
-    }
-
-    fn context(&self) -> Self::Context {}
-}
+//     Ok(GetTpsOutput { tps })
+// }

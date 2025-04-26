@@ -21,8 +21,8 @@ pub use close_empty_token_accounts::{close_empty_token_accounts, CloseEmptyToken
 // mod request_faucet_funds;
 // pub use request_faucet_funds::request_faucet_funds;
 
-// mod get_tps;
-// pub use get_tps::get_tps;
+mod get_tps;
+pub use get_tps::get_tps;
 
 // mod transfer;
 // pub use transfer::transfer;

@@ -22,6 +22,7 @@ use solagent_core::SolAgent;
 use solagent_plugin_solana::{close_empty_token_accounts, CloseEmptyTokenAccountsData};
 use anyhow::Result;
 use rig_tool_macro::tool;
+use solagent_wallet_solana::SolAgentWallet;
 use solana_sdk::keypair::Keypair;
 
 // #[derive(Debug, Deserialize)]
@@ -125,8 +126,8 @@ pub struct CloseEmptyTokenAccountsOutput {
     Close empty SPL Token accounts associated with your wallet to reclaim rent. 
             This action will close both regular SPL Token accounts and Token-2022 accounts that have zero balance. 
 ")]
-pub async fn close_empty_token_accounts_tool(keypair: &Keypair) -> Result<CloseEmptyTokenAccountsOutput> {
-    let data = close_empty_token_accounts(keypair)
+pub async fn close_empty_token_accounts_tool(wallet: SolAgentWallet) -> Result<CloseEmptyTokenAccountsOutput> {
+    let data = close_empty_token_accounts(wallet)
     .await
     .expect("close_empty_token_accounts");
 

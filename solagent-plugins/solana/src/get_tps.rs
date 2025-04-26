@@ -1,34 +1,22 @@
-// Copyright 2025 zTgx
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
-use solagent_core::{solana_client::client_error::ClientError, SolAgent};
+use solana_client::{
+    client_error::ClientError, rpc_client::RpcClient};
+use solagent_wallet_solana::SolAgentWallet;
 
 /// Gets the transactions per second (TPS) from the Solana network.
 ///
 /// # Parameters
 ///
-/// - `agent`: An instance of `SolAgent` that connects to the Solana cluster.
+/// - `wallet`: An instance of `SolAgentWallet`.
 ///
 /// # Returns
 ///
 /// A `Result` containing the TPS as a `f64`, or an error if fetching performance samples fails.
-pub async fn get_tps(agent: &SolAgent) -> Result<f64, ClientError> {
+pub async fn get_tps(wallet: &SolAgentWallet) -> Result<f64, ClientError> {
+    let client = RpcClient::new(wallet.rpc_url.clone());
+
     // Fetch recent performance samples
     let limit = 1;
-    let perf_samples = agent
-        .connection
-        .get_recent_performance_samples(Some(limit))?;
+    let perf_samples = client.get_recent_performance_samples(Some(limit))?;
 
     // Check if there are any samples available
     if !perf_samples.is_empty() {

@@ -18,16 +18,3 @@ impl<T: Tool> SolAgentTool<T> {
         self.tool = tool;
     }
 }
-
-// Creates a tool from the metadata and wallet client
-// fn main() {
-//     let tools: SolAgentTool<T> = vec![];
-//     let wallet = SolAgentWallet();
-
-//     let solagent = SolAgent::new(wallet);
-//     let result = solagent.prompt(
-//         SolAgentModel::OpenAI("gpt-4".to_string()),
-//         tools: tools,
-//         "get balance of account: Sola11111111111111111111111111",
-//     );
-// }
