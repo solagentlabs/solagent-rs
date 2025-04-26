@@ -3,10 +3,11 @@ pub mod tool;
 pub mod config;
 
 use {
-    anyhow::Result, model::SolAgentModel, rig::tool::Tool, solagent_wallet_solana::SolAgentWallet, tool::SolAgentTool,
+    anyhow::Result, model::SolAgentModel, rig::tool::{Tool, ToolSet}, solagent_wallet_solana::SolAgentWallet,
     solana_client::rpc_client::RpcClient, crate::config::SolAgentConfig,
 };
 pub use solana_client;
+pub use tool::SolAgentTool;
 
 pub struct SolAgent {
     pub wallet: SolAgentWallet,
@@ -32,10 +33,10 @@ impl SolAgent {
     /// # Returns
     ///
     /// * `Result<String>` - The result of processing the prompt.
-    pub async fn prompt<T: Tool + Clone + 'static>(
+    pub async fn prompt(
         &self,
         model: SolAgentModel,
-        tools: Vec<SolAgentTool<T>>,
+        tools: ToolSet,
         prompt: &str,
     ) -> Result<String> {
         // Dynamically create the agent based on the model

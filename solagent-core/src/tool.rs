@@ -1,11 +1,16 @@
-use rig::tool::Tool;
+use rig::{completion::ToolDefinition, tool::ToolDyn};
+use serde_json::Value;
+use std::error::Error;
+use serde::{Deserialize, Serialize};
+use async_trait::async_trait;
+use serde::de::DeserializeOwned;
 
 /// A wrapper for `Tool` implementations.
-pub struct SolAgentTool<T: Tool> {
+pub struct SolAgentTool<T: ToolDyn> {
     tool: T,
 }
 
-impl<T: Tool> SolAgentTool<T> {
+impl<T: ToolDyn> SolAgentTool<T> {
     pub fn new(tool: T) -> Self {
         Self { tool }
     }

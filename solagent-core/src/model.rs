@@ -3,7 +3,7 @@ use rig::agent::Agent;
 use rig::completion::Prompt;
 use rig::providers::gemini::completion::CompletionModel;
 use rig::providers::{ollama, anthropic, cohere, gemini, openai, perplexity};
-use rig::tool::Tool;
+use rig::tool::ToolSet;
 
 use crate::tool::SolAgentTool;
 
@@ -46,93 +46,45 @@ impl SolAgentModel {
     /// # Returns
     ///
     /// * `Result<SolAgentCompletionModel>` - The dynamically created agent wrapped in the `SolAgentCompletionModel` enum.
-    pub fn create_agent<T: Tool + 'static + Clone>(
+    pub fn create_agent(
         &self,
-        tools: Vec<SolAgentTool<T>>,
+        tools: ToolSet,
     ) -> Result<SolAgentCompletionModel> {
         match self {
             SolAgentModel::Ollama(model_name) => {
                 let client = ollama::Client::new();
-                let tools: Vec<&T> = tools.iter().map(|tool| tool.get_tool()).collect();
-
-                let mut agent_builder = client.agent(model_name);
-
-                for tool in tools {
-                    agent_builder = agent_builder.tool(tool.clone());
-                }
-
-                let agent = agent_builder.build();
+                let mut agent = client.agent(model_name).build();
+                agent.tools = tools;
                 Ok(SolAgentCompletionModel::Ollama(agent))
             },
             SolAgentModel::OpenAI(model_name) => {
                 let client = openai::Client::from_env();
-                let tools: Vec<&T> = tools.iter().map(|tool| tool.get_tool()).collect();
-
-                let mut agent_builder = client.agent(model_name);
-
-                for tool in tools {
-                    agent_builder = agent_builder.tool(tool.clone());
-                }
-
-                let agent = agent_builder.build();
+                let mut agent = client.agent(model_name).build();
+                agent.tools = tools;
                 Ok(SolAgentCompletionModel::OpenAI(agent))
             }
             SolAgentModel::Gemini(model_name) => {
                 let client = gemini::Client::from_env();
-                let tools: Vec<&T> = tools.iter().map(|tool| tool.get_tool()).collect();
-
-                let mut agent_builder = client.agent(model_name);
-
-                for tool in tools {
-                    agent_builder = agent_builder.tool(tool.clone());
-
-                    println!("Tool name> {:?}", tool.name());
-                }
-
-                let agent = agent_builder.build();
-
+                let mut agent = client.agent(model_name).build();
+                agent.tools = tools;
                 Ok(SolAgentCompletionModel::Gemini(agent))
             }
             SolAgentModel::Anthropic(model_name) => {
                 let client = anthropic::Client::from_env();
-                let tools: Vec<&T> = tools.iter().map(|tool| tool.get_tool()).collect();
-
-                let mut agent_builder = client.agent(model_name);
-
-                for tool in tools {
-                    agent_builder = agent_builder.tool(tool.clone());
-                }
-
-                let agent = agent_builder.build();
-
+                let mut agent = client.agent(model_name).build();
+                agent.tools = tools;
                 Ok(SolAgentCompletionModel::Anthropic(agent))
             }
             SolAgentModel::Cohere(model_name) => {
                 let client = cohere::Client::from_env();
-                let tools: Vec<&T> = tools.iter().map(|tool| tool.get_tool()).collect();
-
-                let mut agent_builder = client.agent(model_name);
-
-                for tool in tools {
-                    agent_builder = agent_builder.tool(tool.clone());
-                }
-
-                let agent = agent_builder.build();
-
+                let mut agent = client.agent(model_name).build();
+                agent.tools = tools;
                 Ok(SolAgentCompletionModel::Cohere(agent))
             }
             SolAgentModel::Perplexity(model_name) => {
                 let client = perplexity::Client::from_env();
-                let tools: Vec<&T> = tools.iter().map(|tool| tool.get_tool()).collect();
-
-                let mut agent_builder = client.agent(model_name);
-
-                for tool in tools {
-                    agent_builder = agent_builder.tool(tool.clone());
-                }
-
-                let agent = agent_builder.build();
-
+                let mut agent = client.agent(model_name).build();
+                agent.tools = tools;
                 Ok(SolAgentCompletionModel::Perplexity(agent))
             }
         }
@@ -152,6 +104,7 @@ impl SolAgentCompletionModel {
     pub async fn prompt(&self, prompt: &str) -> Result<String> {
         match self {
             SolAgentCompletionModel::Ollama(agent) => {
+                println!("contains > {}", agent.tools.contains("get_tps"));
                 let response = agent.prompt(prompt).await?;
                 Ok(response)
             },
