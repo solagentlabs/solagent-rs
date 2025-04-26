@@ -15,8 +15,7 @@
 #![allow(dead_code)]
 
 #[derive(Debug, Clone, Default)]
-pub struct Config {
-    pub openai_api_key: Option<String>,
+pub struct SolAgentConfig {
     pub jupiter_referral_account: Option<String>,
     pub jupiter_fee_bps: Option<u16>, // Assuming fee is represented as a percentage (0-10000)
     pub flash_privilege: Option<String>,
@@ -27,8 +26,7 @@ pub struct Config {
 }
 
 #[derive(Default)]
-pub struct ConfigBuilder {
-    openai_api_key: Option<String>,
+pub struct SolAgentConfigBuilder {
     jupiter_referral_account: Option<String>,
     jupiter_fee_bps: Option<u16>,
     flash_privilege: Option<String>,
@@ -38,12 +36,7 @@ pub struct ConfigBuilder {
     birdeye_api_key: Option<String>,
 }
 
-impl ConfigBuilder {
-    pub fn openai_api_key(mut self, key: String) -> Self {
-        self.openai_api_key = Some(key);
-        self
-    }
-
+impl SolAgentConfigBuilder {
     pub fn jupiter_referral_account(mut self, account: String) -> Self {
         self.jupiter_referral_account = Some(account);
         self
@@ -79,9 +72,8 @@ impl ConfigBuilder {
         self
     }
 
-    pub fn build(self) -> Config {
-        Config {
-            openai_api_key: self.openai_api_key,
+    pub fn build(self) -> SolAgentConfig {
+        SolAgentConfig {
             jupiter_referral_account: self.jupiter_referral_account,
             jupiter_fee_bps: self.jupiter_fee_bps,
             flash_privilege: self.flash_privilege,
@@ -99,8 +91,7 @@ mod tests {
 
     #[test]
     fn test_config_builder_default() {
-        let config = ConfigBuilder::default().build();
-        assert!(config.openai_api_key.is_none());
+        let config = SolAgentConfigBuilder::default().build();
         assert!(config.jupiter_referral_account.is_none());
         assert_eq!(config.jupiter_fee_bps, None);
         assert!(config.flash_privilege.is_none());
@@ -112,8 +103,7 @@ mod tests {
 
     #[test]
     fn test_config_builder_with_values() {
-        let config = ConfigBuilder::default()
-            .openai_api_key("test_api_key".to_string())
+        let config = SolAgentConfigBuilder::default()
             .jupiter_referral_account("test_referral_account".to_string())
             .jupiter_fee_bps(500)
             .flash_privilege("test_flash_privilege".to_string())
@@ -123,7 +113,6 @@ mod tests {
             .birdeye_api_key("birdeye_api_key".to_string())
             .build();
 
-        assert_eq!(config.openai_api_key, Some("test_api_key".to_string()));
         assert_eq!(config.jupiter_referral_account, Some("test_referral_account".to_string()));
         assert_eq!(config.jupiter_fee_bps, Some(500));
         assert_eq!(config.flash_privilege, Some("test_flash_privilege".to_string()));

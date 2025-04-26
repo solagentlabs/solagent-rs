@@ -1,21 +1,23 @@
 pub mod model;
 pub mod tool;
+pub mod config;
 
 use {
     anyhow::Result, model::SolAgentModel, rig::tool::Tool, solagent_wallet_solana::SolAgentWallet, tool::SolAgentTool,
-    solana_client::rpc_client::RpcClient,
+    solana_client::rpc_client::RpcClient, crate::config::SolAgentConfig,
 };
 
 pub struct SolAgent {
     pub wallet: SolAgentWallet,
+    pub config: Option<SolAgentConfig>,
     pub rpc_client: RpcClient,
 }
 
 impl SolAgent {
     /// Creates a new `SolAgent` with the given wallet.
-    pub fn new(wallet: SolAgentWallet) -> Self {
+    pub fn new(wallet: SolAgentWallet, config: Option<SolAgentConfig>) -> Self {
         let rpc_client = RpcClient::new(&wallet.rpc_url);
-        Self { wallet, rpc_client }
+        Self { config, wallet, rpc_client }
     }
 
     /// Dynamically creates an `Agent` based on the provided model and executes the prompt.
