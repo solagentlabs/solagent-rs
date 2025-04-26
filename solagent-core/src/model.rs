@@ -2,7 +2,7 @@ use anyhow::Result;
 use rig::agent::Agent;
 use rig::completion::Prompt;
 use rig::providers::gemini::completion::CompletionModel;
-use rig::providers::{anthropic, cohere, gemini, openai, perplexity};
+use rig::providers::{ollama, anthropic, cohere, gemini, openai, perplexity};
 use rig::tool::Tool;
 
 use crate::tool::SolAgentTool;
@@ -11,6 +11,8 @@ use crate::tool::SolAgentTool;
 /// The `String` field specifies the model name, such as "gpt-4" or "gemini-1.0".
 #[non_exhaustive]
 pub enum SolAgentModel {
+    /// Ollama model, e.g., "llama3.2".
+    Ollama(String),
     /// OpenAI model, e.g., "gpt-4", "gpt-3.5-turbo".
     OpenAI(String),
     /// Gemini model, e.g., "gemini-1.0".
@@ -26,6 +28,7 @@ pub enum SolAgentModel {
 /// Represents the different types of agents that can be created.
 #[non_exhaustive]
 pub enum SolAgentCompletionModel {
+    Ollama(Agent<ollama::CompletionModel>),
     OpenAI(Agent<openai::CompletionModel>),
     Gemini(Agent<CompletionModel>),
     Anthropic(Agent<anthropic::completion::CompletionModel>),
@@ -48,6 +51,19 @@ impl SolAgentModel {
         tools: Vec<SolAgentTool<T>>,
     ) -> Result<SolAgentCompletionModel> {
         match self {
+            SolAgentModel::Ollama(model_name) => {
+                let client = ollama::Client::new();
+                let tools: Vec<&T> = tools.iter().map(|tool| tool.get_tool()).collect();
+
+                let mut agent_builder = client.agent(model_name);
+
+                for tool in tools {
+                    agent_builder = agent_builder.tool(tool.clone());
+                }
+
+                let agent = agent_builder.build();
+                Ok(SolAgentCompletionModel::Ollama(agent))
+            },
             SolAgentModel::OpenAI(model_name) => {
                 let client = openai::Client::from_env();
                 let tools: Vec<&T> = tools.iter().map(|tool| tool.get_tool()).collect();
@@ -69,6 +85,8 @@ impl SolAgentModel {
 
                 for tool in tools {
                     agent_builder = agent_builder.tool(tool.clone());
+
+                    println!("Tool name> {:?}", tool.name());
                 }
 
                 let agent = agent_builder.build();
@@ -133,6 +151,10 @@ impl SolAgentCompletionModel {
     /// * `Result<String>` - The result of processing the prompt.
     pub async fn prompt(&self, prompt: &str) -> Result<String> {
         match self {
+            SolAgentCompletionModel::Ollama(agent) => {
+                let response = agent.prompt(prompt).await?;
+                Ok(response)
+            },
             SolAgentCompletionModel::OpenAI(agent) => {
                 let response = agent.prompt(prompt).await?;
                 Ok(response)

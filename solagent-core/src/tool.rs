@@ -14,7 +14,7 @@ impl<T: Tool> SolAgentTool<T> {
         &self.tool
     }
 
-    pub fn registe(&mut self, tool: T) {
+    pub fn register(&mut self, tool: T) {
         self.tool = tool;
     }
 }
