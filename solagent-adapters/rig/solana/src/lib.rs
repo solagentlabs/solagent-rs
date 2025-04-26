@@ -13,18 +13,18 @@ pub mod get_tps;
 
 use solagent_core::{tool::SolAgentTool, SolAgent};
 use std::sync::Arc;
-use rig::tool::{ToolSetBuilder, ToolSet};
+use rig::tool::{ToolSetBuilder, ToolSet, Tool};
 use crate::close_empty_account::CloseEmptyTokenAccounts;
 use crate::get_tps::GetTps;
 
-pub fn get_solana_tools(solagent: Arc<SolAgent>) -> ToolSet {
+pub fn get_solana_tools(solagent: Arc<SolAgent>) -> SolAgentTool {
     let tps = GetTps::new(solagent.clone());
     let close = CloseEmptyTokenAccounts::new(solagent.clone());
     
     let toolset = ToolSet::builder()
-    	.static_tool(tps)
+        .static_tool(tps)
     	.static_tool(close)
 	    .build();
 
-	toolset
+	SolAgentTool::new(vec![GetTps::NAME.to_string(), CloseEmptyTokenAccounts::NAME.to_string()], toolset)
 }

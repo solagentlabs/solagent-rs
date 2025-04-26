@@ -36,7 +36,7 @@ impl SolAgent {
     pub async fn prompt(
         &self,
         model: SolAgentModel,
-        tools: ToolSet,
+        tools: SolAgentTool,
         prompt: &str,
     ) -> Result<String> {
         // Dynamically create the agent based on the model

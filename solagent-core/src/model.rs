@@ -48,43 +48,43 @@ impl SolAgentModel {
     /// * `Result<SolAgentCompletionModel>` - The dynamically created agent wrapped in the `SolAgentCompletionModel` enum.
     pub fn create_agent(
         &self,
-        tools: ToolSet,
+        tools: SolAgentTool,
     ) -> Result<SolAgentCompletionModel> {
         match self {
             SolAgentModel::Ollama(model_name) => {
                 let client = ollama::Client::new();
-                let mut agent = client.agent(model_name).build();
-                agent.tools = tools;
+                let mut agent = client.agent(model_name).tool_names(tools.tool_names).build();
+                agent.tools = tools.toolset;
                 Ok(SolAgentCompletionModel::Ollama(agent))
             },
             SolAgentModel::OpenAI(model_name) => {
                 let client = openai::Client::from_env();
-                let mut agent = client.agent(model_name).build();
-                agent.tools = tools;
+                let mut agent = client.agent(model_name).tool_names(tools.tool_names).build();
+                agent.tools = tools.toolset;
                 Ok(SolAgentCompletionModel::OpenAI(agent))
             }
             SolAgentModel::Gemini(model_name) => {
                 let client = gemini::Client::from_env();
-                let mut agent = client.agent(model_name).build();
-                agent.tools = tools;
+                let mut agent = client.agent(model_name).tool_names(tools.tool_names).build();
+                agent.tools = tools.toolset;
                 Ok(SolAgentCompletionModel::Gemini(agent))
             }
             SolAgentModel::Anthropic(model_name) => {
                 let client = anthropic::Client::from_env();
-                let mut agent = client.agent(model_name).build();
-                agent.tools = tools;
+                let mut agent = client.agent(model_name).tool_names(tools.tool_names).build();
+                agent.tools = tools.toolset;
                 Ok(SolAgentCompletionModel::Anthropic(agent))
             }
             SolAgentModel::Cohere(model_name) => {
                 let client = cohere::Client::from_env();
-                let mut agent = client.agent(model_name).build();
-                agent.tools = tools;
+                let mut agent = client.agent(model_name).tool_names(tools.tool_names).build();
+                agent.tools = tools.toolset;
                 Ok(SolAgentCompletionModel::Cohere(agent))
             }
             SolAgentModel::Perplexity(model_name) => {
                 let client = perplexity::Client::from_env();
-                let mut agent = client.agent(model_name).build();
-                agent.tools = tools;
+                let mut agent = client.agent(model_name).tool_names(tools.tool_names).build();
+                agent.tools = tools.toolset;
                 Ok(SolAgentCompletionModel::Perplexity(agent))
             }
         }
