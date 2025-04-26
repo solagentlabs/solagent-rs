@@ -3,6 +3,7 @@ pub mod tool;
 
 use {
     anyhow::Result, model::SolAgentModel, rig::tool::Tool, solagent_wallet_solana::SolAgentWallet, tool::SolAgentTool,
+    serde_json::Value,
 };
 
 pub struct SolAgent {
@@ -31,7 +32,7 @@ impl SolAgent {
         model: SolAgentModel,
         tools: Vec<SolAgentTool<T>>,
         prompt: &str,
-    ) -> Result<String> {
+    ) -> Result<Value> {
         // Dynamically create the agent based on the model
         let agent = model.create_agent(tools)?;
 

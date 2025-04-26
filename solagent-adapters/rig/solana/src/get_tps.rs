@@ -46,23 +46,7 @@ impl Tool for GetTps {
     }
 
     async fn call(&self, _args: Self::Args) -> Result<Self::Output, Self::Error> {
-        println!("get call: {:?}", self.wallet);
         let tps = get_tps(&self.wallet).await.expect("get_tps");
-
-        println!("tps: {:?}", tps);
-
         Ok(GetTpsOutput { tps })
     }
 }
-
-// #[tool(
-//     description = "
-//     Get the current transactions per second (TPS) of the Solana network
-// ")]
-// pub async fn get_tps_tool(wallet: &SolAgentWallet) -> Result<GetTpsOutput> {
-//     let tps = get_tps(keypair)
-//     .await
-//     .expect("get_tps");
-
-//     Ok(GetTpsOutput { tps })
-// }
