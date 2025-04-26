@@ -3133,23 +3133,6 @@ dependencies = [
 
 [[package]]
 name = "rig-core"
-version = "0.7.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7f8190b6b290cc0b9bd7ff44156e288f0df82c2d3cbccc9ffa1c44493b38ffc4"
-dependencies = [
- "futures",
- "glob",
- "ordered-float",
- "reqwest 0.11.27",
- "schemars",
- "serde",
- "serde_json",
- "thiserror 1.0.69",
- "tracing",
-]
-
-[[package]]
-name = "rig-core"
 version = "0.8.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7aaf53f8631db9cc12287b5595b14964ae36a213f0d247055efcd26714f2da2b"
@@ -3689,24 +3672,11 @@ dependencies = [
 
 [[package]]
 name = "solagent-core"
-version = "0.1.6"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "984d881c2b32a07620a68dfe363ff42cdbbf7cefb4df0563d139d677ad37fd90"
-dependencies = [
- "rig-core 0.7.0",
- "solagent-wallet-solana 0.1.3",
- "solana-client",
- "solana-program",
- "solana-sdk",
-]
-
-[[package]]
-name = "solagent-core"
 version = "0.2.0"
 dependencies = [
  "anyhow",
  "rig-core 0.11.1",
- "solagent-wallet-solana 0.2.0",
+ "solagent-wallet-solana",
  "solana-client",
 ]
 
@@ -3721,15 +3691,15 @@ dependencies = [
 
 [[package]]
 name = "solagent-plugin-solana"
-version = "0.1.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d41fd24ec5a03f754208b8a8be38adbd216c63d68ec6923a705107a141692f87"
+version = "0.2.0"
 dependencies = [
+ "anyhow",
  "mpl-token-metadata",
  "serde",
  "serde_json",
- "solagent-core 0.1.6",
+ "solagent-core",
  "solana-account-decoder",
+ "solana-sdk",
  "spl-associated-token-account",
  "spl-token",
  "spl-token-2022 6.0.0",
@@ -3744,20 +3714,12 @@ dependencies = [
  "rig-tool-macro",
  "serde",
  "serde_json",
- "solagent-core 0.2.0",
+ "solagent-core",
  "solagent-parameters",
  "solagent-plugin-solana",
- "thiserror 2.0.12",
-]
-
-[[package]]
-name = "solagent-wallet-solana"
-version = "0.1.3"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c99a1ec7d2dcb184ba8c54f61d18e1b0fdef58119c5c46b1f49d2916db19cfa0"
-dependencies = [
- "dotenv",
+ "solagent-wallet-solana",
  "solana-sdk",
+ "thiserror 2.0.12",
 ]
 
 [[package]]

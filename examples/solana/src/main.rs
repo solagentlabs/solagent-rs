@@ -11,7 +11,7 @@ async fn main() -> Result<()> {
     let result = solagent
         .prompt(
             model::SolAgentModel::Ollama("llama3.2".to_string()),
-            vec![get_tps::tool(solagent.clone())],
+            vec![get_tps::get_tool(solagent.clone())],
             "get solana tps",
         )
         .await?;

@@ -3741,7 +3741,6 @@ version = "0.2.0"
 dependencies = [
  "anyhow",
  "rig-core 0.11.1",
- "serde_json",
  "solagent-wallet-solana",
  "solana-client",
 ]
