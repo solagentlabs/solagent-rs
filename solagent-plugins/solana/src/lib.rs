@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-mod close_empty_token_accounts;
-pub use close_empty_token_accounts::{close_empty_token_accounts, CloseEmptyTokenAccountsData};
+// mod close_empty_token_accounts;
+// pub use close_empty_token_accounts::{close_empty_token_accounts, CloseEmptyTokenAccountsData};
 
 // mod get_balance;
 // pub use get_balance::get_balance;

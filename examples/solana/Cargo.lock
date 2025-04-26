@@ -3741,6 +3741,7 @@ version = "0.2.0"
 dependencies = [
  "anyhow",
  "rig-core 0.11.1",
+ "serde_json",
  "solagent-wallet-solana",
  "solana-client",
 ]
@@ -3758,12 +3759,12 @@ dependencies = [
 name = "solagent-plugin-solana"
 version = "0.2.0"
 dependencies = [
+ "anyhow",
  "mpl-token-metadata",
  "serde",
  "serde_json",
- "solagent-wallet-solana",
+ "solagent-core",
  "solana-account-decoder",
- "solana-client",
  "solana-sdk",
  "spl-associated-token-account",
  "spl-token",
@@ -3802,6 +3803,7 @@ name = "solana"
 version = "0.1.0"
 dependencies = [
  "anyhow",
+ "serde_json",
  "solagent-core",
  "solagent-rig-solana",
  "solagent-wallet-solana",

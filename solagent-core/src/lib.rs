@@ -3,17 +3,19 @@ pub mod tool;
 
 use {
     anyhow::Result, model::SolAgentModel, rig::tool::Tool, solagent_wallet_solana::SolAgentWallet, tool::SolAgentTool,
-    serde_json::Value,
+    solana_client::rpc_client::RpcClient,
 };
 
 pub struct SolAgent {
     pub wallet: SolAgentWallet,
+    pub rpc_client: RpcClient,
 }
 
 impl SolAgent {
     /// Creates a new `SolAgent` with the given wallet.
     pub fn new(wallet: SolAgentWallet) -> Self {
-        Self { wallet }
+        let rpc_client = RpcClient::new(&wallet.rpc_url);
+        Self { wallet, rpc_client }
     }
 
     /// Dynamically creates an `Agent` based on the provided model and executes the prompt.
@@ -32,7 +34,7 @@ impl SolAgent {
         model: SolAgentModel,
         tools: Vec<SolAgentTool<T>>,
         prompt: &str,
-    ) -> Result<Value> {
+    ) -> Result<String> {
         // Dynamically create the agent based on the model
         let agent = model.create_agent(tools)?;
 

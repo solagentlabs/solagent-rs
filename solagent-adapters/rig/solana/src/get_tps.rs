@@ -4,13 +4,13 @@ use rig::{
     completion::ToolDefinition,
     tool::Tool,
 };
-use solagent_wallet_solana::SolAgentWallet;
 use std::sync::Arc;
+use solagent_core::{SolAgent, tool::SolAgentTool};
 
 #[derive(Deserialize)]
 pub struct GetTpsArgs {}
 
-#[derive(Deserialize, Serialize)]
+#[derive(Debug, Deserialize, Serialize)]
 pub struct GetTpsOutput {
     pub tps: f64,
 }
@@ -19,14 +19,14 @@ pub struct GetTpsOutput {
 #[error("GetTps error")]
 pub struct GetTpsError;
 
-#[derive(Debug, Clone)]
+#[derive(Clone)]
 pub struct GetTps {
-    wallet: Arc<SolAgentWallet>,
+    solagent: Arc<SolAgent>,
 }
 
 impl GetTps {
-    pub fn new(wallet: Arc<SolAgentWallet>) -> Self {
-        GetTps { wallet }
+    pub fn new(solagent: Arc<SolAgent>) -> Self {
+        GetTps { solagent }
     }
 }
 
@@ -46,7 +46,13 @@ impl Tool for GetTps {
     }
 
     async fn call(&self, _args: Self::Args) -> Result<Self::Output, Self::Error> {
-        let tps = get_tps(&self.wallet).await.expect("get_tps");
+        let tps = get_tps(&self.solagent).await.expect("get_tps");
         Ok(GetTpsOutput { tps })
     }
+}
+
+pub fn tool(solagent: Arc<SolAgent>) -> SolAgentTool<GetTps> {
+    let tps = GetTps::new(solagent);
+    let tool = SolAgentTool::new(tps);
+    tool
 }
