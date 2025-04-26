@@ -6,18 +6,18 @@ SolAgent SDK: The AI Agent Development Kit for Solana.
 ```toml
 [dependencies]
 # add wallet
-solagent-wallet-solana = "0.2.0"
+solagent-wallet-solana = "0.x.x"
 
 # add core
-solagent-core = "0.2.0"
+solagent-core = "0.x.x"
 
 # add tools
-solagent-rig-solana = "0.2.0"
+solagent-rig-solana = "0.x.x"
 ```
 * Create SolAgent
 ```rust
 use solagent_core::{model::SolAgentModel, SolAgent};
-use solagent_rig_solana::get_tps::{self, GetTpsOutput};
+use solagent_rig_solana::get_solana_tools;
 use solagent_wallet_solana::SolAgentWallet;
 use std::sync::Arc;
 
@@ -30,7 +30,7 @@ async fn main() {
     let solagent = Arc::new(SolAgent::new(wallet, None));
 
     // Step 3: Add tools you want to use
-    let tools = vec![get_tps::get_tool(solagent.clone())];
+    let tools = get_solana_tools(solagent.clone());
 
     // Step 4: Select the model you want to use
     let model = SolAgentModel::Ollama("llama3.2".to_string());
