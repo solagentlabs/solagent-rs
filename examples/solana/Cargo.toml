@@ -1,0 +1,12 @@
+[package]
+name = "solana"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+solagent-core = { path = "../../solagent-core" }
+solagent-wallet-solana = { path = "../../solagent-wallet/solana" }
+solagent-rig-solana ={ path = "../../solagent-adapters/rig/solana" }
+tokio = { version = "1.42.0", features = ["full"] }
+solana-sdk = "2.2.2"
+anyhow = "1.0"

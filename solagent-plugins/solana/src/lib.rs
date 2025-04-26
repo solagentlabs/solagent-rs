@@ -44,7 +44,7 @@ pub use close_empty_token_accounts::{close_empty_token_accounts, CloseEmptyToken
 
 use mpl_token_metadata::types::Creator;
 use serde::{Deserialize, Serialize};
-use solagent_core::solana_sdk::pubkey::Pubkey;
+use solana_sdk::pubkey::Pubkey;
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct DeployedData {
