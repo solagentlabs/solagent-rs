@@ -6,6 +6,7 @@ use {
     anyhow::Result, model::SolAgentModel, rig::tool::Tool, solagent_wallet_solana::SolAgentWallet, tool::SolAgentTool,
     solana_client::rpc_client::RpcClient, crate::config::SolAgentConfig,
 };
+pub use solana_client;
 
 pub struct SolAgent {
     pub wallet: SolAgentWallet,

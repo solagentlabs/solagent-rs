@@ -19,6 +19,5 @@ solagent-plugin-solana = { path = "../../../solagent-plugins/solana" }
 serde = { version = "1.0", features = ["derive"] }
 thiserror = "2.0.9"
 serde_json = "1.0"
-rig-tool-macro = "0.5.0"
 anyhow = "1.0"
 solana-sdk = "2.2.2"
