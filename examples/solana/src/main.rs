@@ -8,13 +8,10 @@ use std::sync::Arc;
 async fn main() -> Result<()> {
     let wallet = SolAgentWallet::new("https://api.mainnet-beta.solana.com");
     let solagent = Arc::new(SolAgent::new(wallet));
-
-    let tps_tool = get_tps::tool(solagent.clone());
-
     let result = solagent
         .prompt(
             model::SolAgentModel::Ollama("llama3.2".to_string()),
-            vec![tps_tool],
+            vec![get_tps::tool(solagent.clone())],
             "get solana tps",
         )
         .await?;
@@ -23,6 +20,6 @@ async fn main() -> Result<()> {
         Ok(output) => println!("Result: {:#?}", output),
         Err(e) => eprintln!("Failed to parse JSON: {}", e),
     };
-    
+
     Ok(())
 }
