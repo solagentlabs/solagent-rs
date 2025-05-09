@@ -21,9 +21,11 @@ use solagent_rig_solana::get_solana_tools;
 use solagent_wallet_solana::SolAgentWallet;
 use std::sync::Arc;
 
+// https://solagent.dev
+
 #[tokio::main]
 async fn main() {
-    // Step 1: import your wallet
+    // Step 1: Import your wallet
     let wallet = SolAgentWallet::new("https://api.mainnet-beta.solana.com");
 
     // Step 2: Create SolAgent
@@ -35,7 +37,7 @@ async fn main() {
     // Step 4: Select the model you want to use
     let model = SolAgentModel::Ollama("llama3.2".to_string());
 
-    // Step 5: tell it what you want to do.
+    // Step 5: Write your prompt
     let prompt = "Get Tps on solana";
 
     // Wait for the result
@@ -95,19 +97,12 @@ async fn main() {
 ## Contributors
 
 <a href="https://github.com/zTgx/solagent.rs/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=zTgx/solagent.rs" />
+  <img src="https://contrib.rocks/image?repo=solagentlabs/solagent-rs" />
 </a>
 
 ## Star History
 
 [![Star History Chart](https://api.star-history.com/svg?repos=solagentlabs/solagent-rs&type=Date)](https://www.star-history.com/#solagentlabs/solagent-rs&Date)
 
-## Support solagent.rs
-Thank you for your support of solagent.rs! Donation Addresses:    
-
-**Solana: qsvR7V3DtbbxAEs4TkGiQL9N9Z1GccfV6Q6Vm2oHViS**  
-**Ethereum: 0x972b8d20f5847B03Df43d9A595B7e83A7bbCD951**  
-
-## Supporters  
-SendAI: [solscan.io](https://solscan.io/tx/nf3B1zaTZcLuCLVTkLFHuTqjVjLUwXHkCnN3Tdm7PHSDunjJD6tZHYHgijJKbCcchHaxVYWM4uEgieQyLjRBCR4)  
-
+## License
+Apache-2.0

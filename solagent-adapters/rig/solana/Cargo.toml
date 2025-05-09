@@ -10,8 +10,7 @@ description = "solagent.rs rig solana"
 
 [dependencies]
 # solagent-core = "0.1.6"
-# rig-core = "0.11"
-rig-core = { path = "../../../../../rig/rig-core" }
+rig-core = "0.12.0"
 solagent-core = { path = "../../../solagent-core" }
 solagent-wallet-solana = { path = "../../../solagent-wallet/solana" }
 solagent-parameters = "0.1.0"
