@@ -1,0 +1,9 @@
+edition = "2021"
+max_width = 100
+use_small_heuristics = "Max"
+fn_args_layout = "Tall"
+merge_derives = true
+wrap_comments = true
+reorder_imports = true
+group_imports = "StdExternalCrate"
+format_code_in_doc_comments = true

@@ -1,0 +1,8 @@
+[licenses]
+unlicensed = "deny"
+allow = ["MIT", "Apache-2.0"]
+copyleft = "deny"
+
+[sources]
+unknown-registry = "deny"
+unknown-git = "deny"
